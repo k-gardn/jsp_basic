@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%--
+	<%-- 
 		<%@ Directive %> : 자바 페이지 환경 설정(exam : include file, import )
 		<%! Declaration %> : 자바 코드 작성(클래스에 작성 방식, field, method)
 		<%= Expression %> : out.print()와 같은 출력문 작성
@@ -15,11 +15,11 @@
 	 --%>
 
 	<%
-		int data = 10;
-		out.print("date : "+ data +"<br>"); //브라우저에 나타남 => Expression 문으로 바꿀 수 있음.
+		int data = 10 ;
+		out.print("date : "+ data +"<br> "); //브라우저에 나타남 => Expression 문으로 바꿀 수 있음.
 		int i;
 		for(i =0; i <10; i++){
-			out.print("i: "+ i + "<br>");
+			out.print("i: "+ i + "<br> ");
 		}
 	
 	%>
