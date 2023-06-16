@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ex2_make</title>
+<title>ex3_index</title>
 </head>
 <body>
 
@@ -12,19 +12,24 @@
 		// 클라이언트의 쿠키를 확인후
 		Cookie[] cookies = request.getCookies();
 		// 쿠키의 유무에 따라
-		
 		// script를 실행 / 미실행
+		boolean status = true;
 		for(Cookie cookie : cookies){
-			out.print("쿠키 이름 : " + cookie.getName() + "<br>");
-			out.print("쿠키 값 : " + cookie.getValue() + "<br><br>");
+			if(cookie.getName().equals("popup"))
+				status = false;
+		}
+		if(status){
+	%>
+		<script>
+			window.open(
+				'ex3_popup.jsp',
+				'',
+				'width=300, height=300, left=400, top=200'
+			)
+		</script>
+	
+	<%
 		}
 	%>
-	<script>
-		window.open(
-			'ex3_popup.jsp',
-			'',
-			'width=300, height=300, left=400, top=200'
-		)
-	</script>
 </body>
 </html>

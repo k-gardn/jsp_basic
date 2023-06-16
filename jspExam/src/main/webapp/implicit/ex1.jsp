@@ -9,7 +9,7 @@
 <body>
 
 	<%-- request 내장 객체 메소드 --%>
-	<%--http://localhost:8085/jspExam/implicit/ex1.jsp --%>
+	<%--http://localhost:8085/jsp_exam/implicit/ex1.jsp --%>
 	
 	컨텍스트 패스 : <%=request.getContextPath() %> <br>
 	요청방식 : <%=request.getMethod() %><br>
