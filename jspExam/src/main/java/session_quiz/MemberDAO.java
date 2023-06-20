@@ -103,7 +103,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		ArrayList<MemberDTO> members = new ArrayList<MemberDTO>();
 		try {
-			ps = con.prepareStatement("SELECT * FROM session_exam");
+			ps = con.prepareStatement("SELECT * FROM session_quiz");
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				MemberDTO memberDto = new MemberDTO();
