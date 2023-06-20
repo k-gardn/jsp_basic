@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%
-	String id = (String)session.getAttribute("userId");
+	String id = (String)session.getAttribute("id");
 	
 	if(id != null){
 	%>

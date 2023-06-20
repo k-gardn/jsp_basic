@@ -1,4 +1,4 @@
-package session;
+package session_quiz;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,52 +22,20 @@ public class MemberDAO {
 		}
 	}
 	
-	public void disConnection() {
-		if(con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public ArrayList<MemberDTO> selectAll() {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<MemberDTO> members = new ArrayList<>();
-		try {
-			ps = con.prepareStatement("SELECT * FROM session_exam");
-			rs = ps.executeQuery();
-			while(rs.next()) {
-				MemberDTO memberDto = new MemberDTO();
-				memberDto.setId(rs.getString("id"));
-				memberDto.setPw(rs.getString("pw"));
-				memberDto.setName(rs.getString("name"));
-				memberDto.setEmail(rs.getString("email"));
-				
-				members.add(memberDto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return members;
-	}
-	
 	public MemberDTO selectId(String id) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("SELECT * FROM session_exam WHERE id=?");
+			ps = con.prepareStatement("SELECT * FROM session_quiz WHERE id=?");
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				MemberDTO memberDto = new MemberDTO();
 				memberDto.setId(rs.getString("id"));
 				memberDto.setPw(rs.getString("pw"));
-				memberDto.setName(rs.getString("name"));
-				memberDto.setEmail(rs.getString("email"));
+				memberDto.setUserName(rs.getString("user_name"));
+				memberDto.setAddress(rs.getString("address"));
+				memberDto.setMobile(rs.getString("mobile"));
 				return memberDto;
 			}
 		} catch (SQLException e) {
@@ -76,20 +44,22 @@ public class MemberDAO {
 		return null;
 	}
 	
-	public void register(String id, String pw, String name, String email) {
-		String sql = "INSERT INTO session_exam VALUES(?,?,?,?)";
+	public void register(String id, String pw, String userName, String address, String mobile) {
+		String sql = "INSERT INTO session_quiz VALUES(?,?,?,?,?)";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
 			ps.setString(2, pw);
-			ps.setString(3, name);
-			ps.setString(4, email);
+			ps.setString(3, userName);
+			ps.setString(4, address);
+			ps.setString(5, mobile);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void update(String id, String pw, String name, String email) {
 		String sql = "UPDATE session_exam SET pw=?, name=?, email=? WHERE id=?";
@@ -112,11 +82,42 @@ public class MemberDAO {
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
-			
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void disConnection() {
+		try {
+			if(con != null) {
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<MemberDTO> selectAll() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<MemberDTO> members = new ArrayList<MemberDTO>();
+		try {
+			ps = con.prepareStatement("SELECT * FROM session_exam");
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				MemberDTO memberDto = new MemberDTO();
+				memberDto.setId(rs.getString("id"));
+				memberDto.setPw(rs.getString("pw"));
+				memberDto.setUserName(rs.getString("user_name"));
+				memberDto.setAddress(rs.getString("address"));
+				memberDto.setMobile(rs.getString("mobile"));
+				members.add(memberDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return members;
 	}
 }
 
