@@ -61,15 +61,16 @@ public class MemberDAO {
 	}
 	
 	
-	public void update(String id, String pw, String name, String email) {
-		String sql = "UPDATE session_exam SET pw=?, name=?, email=? WHERE id=?";
+	public void update(String id, String pw, String userName,String address, String mobile) {
+		String sql = "UPDATE session_quiz SET pw=?, user_name=?, address=?, mobile=? WHERE id=?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(4, id);
 			ps.setString(1, pw);
-			ps.setString(2, name);
-			ps.setString(3, email);
+			ps.setString(2, userName);
+			ps.setString(3, address);
+			ps.setString(4, mobile);
+			ps.setString(5, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

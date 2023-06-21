@@ -44,4 +44,29 @@ function loginCheck(){
 	}
 }
 
+function updateButton(){
+	var id = document.getElementById('id');
+			if(id.value == ''){
+				alert('아이디는 필수로 입력 값이 있어야합니다.')
+				return;
+			}
+			//alert('아이디 : ' + id.value);
+			
+			var pw = document.getElementById('pw');
+			if(pw.value == ''){
+				alert('비밀번호는 필수로 입력 값이 있어야합니다.')
+				return;
+			}
+			var confirmPw = document.getElementById('confirmPw');
+			if(pw.value != confirmPw.value){
+				alert('두 비밀번호는 같은 비밀번호로 입력하세요.')
+				return;
+			}
+			var formRef = document.getElementById('f');
+			formRef.submit(); //submit 버튼을 누른효과를 얻을 수 있음.
+}
+
+	function cancelButton(){
+			location.href='index.jsp';
+		}
 
