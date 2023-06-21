@@ -78,7 +78,7 @@ public class MemberDAO {
 	}
 	
 	public void delete(String id) {
-		String sql = "DELETE FROM session_exam WHERE id=?";
+		String sql = "DELETE FROM session_quiz WHERE id=?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(sql);
