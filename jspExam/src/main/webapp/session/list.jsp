@@ -32,7 +32,7 @@
 	
 		MemberDAO memberDao = new MemberDAO();
 		ArrayList<MemberDTO> members = memberDao.selectAll(begin, end, select, search);
-		int totalCount = memberDao.count();
+		int totalCount = memberDao.count(select, search);
 		memberDao.disConnection();
 		if(members.isEmpty()){
 			out.print("<h3>등록 후 이용하세요.</h3>");
@@ -68,7 +68,7 @@
 	
 	<form action="list.jsp">
 		<select name="select">
-			<option value="">전체</option>
+			<option value="total">전체</option>
 			<option value="id">아이디</option>
 			<option value="email">이메일</option>
 		</select>

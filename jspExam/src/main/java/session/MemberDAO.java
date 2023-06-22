@@ -93,14 +93,36 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	public int count() {
+	public int count(String select, String search) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql ="SELECT count(id) FROM session_exam";
+		String sql = "";
+		
 		int count = 0;
 		try {
-			ps = con.prepareStatement(sql);
-			rs = ps.executeQuery();
+			if(select.isEmpty()) { //검색을 누르지 않았을 경우를 위해서.
+				sql ="SELECT count(id) FROM session_exam";
+				ps = con.prepareStatement(sql);
+				rs = ps.executeQuery();
+				
+			}else if(select.equals("id")) {
+				sql ="SELECT count(id) FROM session_exam WHERE id like ?";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "%"+search+"%");
+				rs = ps.executeQuery();
+			}else if(select.equals("email")) {
+				sql ="SELECT count(id) FROM session_exam WHERE email like ?";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "%"+search+"%");
+				rs = ps.executeQuery();
+			}else if(select.equals("total")){ // id, name, email 컬럼중에 하나라도 검색어와 일치하면 출력되도록.
+				sql ="SELECT count(id) FROM session_exam WHERE(id LIKE ? OR name LIKE ? OR email LIKE ?)";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "%"+search+"%");
+				ps.setString(2, "%"+search+"%");
+				ps.setString(3, "%"+search+"%");
+				rs = ps.executeQuery();
+			}
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}
@@ -117,29 +139,40 @@ public class MemberDAO {
 		String sql = "";
 
 		try {
-			if(select.isEmpty()) {
+			if(select.isEmpty()) { //검색을 누르지 않았을 경우를 위해서.
 				sql ="SELECT AAA.* "
-				+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam)AAA "
+				+ "FROM (SELECT rownum as rn, session_exam.* FROM session_exam)AAA "
 				+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, end);
 				ps.setInt(2, begin);
 			}else if(select.equals("id")) {
-	sql ="SELECT AAA.* "
-	+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam WHERE id like ?)AAA "
-	+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
+				sql ="SELECT AAA.* "
+				+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam WHERE id like ?)AAA "
+				+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "%"+search+"%");
 				ps.setInt(2, end);
 				ps.setInt(3, begin);
-			}else {
-	sql ="SELECT AAA.* "
-	+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam WHERE email like ?)AAA "
-	+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
+			}else if(select.equals("email")) {
+				sql ="SELECT AAA.* "
+				+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam WHERE email like ?)AAA "
+				+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "%"+search+"%");
 				ps.setInt(2, end);
 				ps.setInt(3, begin);
+			}else if(select.equals("total")){ //전체 검색 추가해 봄. id, name, email 컬럼중에 하나라도 검색어와 일치하면 출력되도록.
+				sql ="SELECT AAA.* "
+				+ "FROM (SELECT rownum as rn, id, pw, name, email FROM session_exam WHERE(id LIKE ? OR name LIKE ? OR email LIKE ?))AAA "
+				+ "WHERE AAA.rn <= ? AND AAA.rn >= ?";
+				
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "%"+search+"%");
+				ps.setString(2, "%"+search+"%");
+				ps.setString(3, "%"+search+"%");
+				ps.setInt(4, end);
+				ps.setInt(5, begin);
 			}
 			rs = ps.executeQuery();
 			while(rs.next()) {
