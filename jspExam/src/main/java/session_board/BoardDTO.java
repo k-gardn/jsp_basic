@@ -1,4 +1,4 @@
-package session_quiz;
+package session_board;
 /*
 	CREATE TABLE session_board(
 	no VARCHAR2(40), //게시글 번호

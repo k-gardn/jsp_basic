@@ -1,15 +1,13 @@
-<%@page import="session_quiz.BoardDTO"%>
-<%@page import="session_quiz.BoardDAO"%>
+<%@page import="session_board.BoardDTO"%>
+<%@page import="session_board.BoardDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="session_quiz.MemberDTO"%>
-<%@page import="session_quiz.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>boardForm</title>
 </head>
 <body>
 	<!-- 
@@ -30,7 +28,7 @@
 		BoardDAO boardDao = new BoardDAO();
 		// BoardDTO boardDto = new BoardDTO();
 		int totalBoard = boardDao.boardCount();
-		int eachPage = 3;
+		int eachPage = 4;
 		
 		int begin = (eachPage * (currentPage - 1)) + 1; // 1,4,7
 		int end = currentPage * eachPage; //3,6,9
@@ -60,7 +58,9 @@
 				for(BoardDTO boardDto : boards){%>
 					<tr align="center">
 						<td><%= boardDto.getNo()%></td>
-						<td><%= boardDto.getTitle()%></td>
+						<td onclick="location.href='boardContent.jsp?num=<%= boardDto.getNo()%>'">
+							<%= boardDto.getTitle()%>
+						</td>
 						<td><%= boardDto.getId()%></td>
 						<td><%= boardDto.getWriteDate()%></td>
 						<td><%= boardDto.getHits()%></td>
@@ -94,7 +94,7 @@
 						%>
 					</td>
 					<td>
-						<button >글쓰기</button>
+						<button type="button" onclick="location.href='boardWrite.jsp'">글쓰기</button>
 					</td>
 				</tr>
 				
