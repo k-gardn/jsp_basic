@@ -34,7 +34,7 @@ public class BoardDAO {
 	public int boardCount() {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT count(no) FROM session_board";
+		String sql = "SELECT count(TO_NUMBER(no)) FROM session_board";
 		int result = 0;
 		try {
 			ps = con.prepareStatement(sql);
@@ -83,7 +83,7 @@ public class BoardDAO {
 	
 	public int selectMaxNo() {
 		int no = 0;
-		String sql = "SELECT max(no)+1 FROM session_board";
+		String sql = "SELECT max(TO_NUMBER(no))+1 FROM session_board";
 		PreparedStatement ps= null;
 		ResultSet rs = null;
 		try {
@@ -156,5 +156,30 @@ public class BoardDAO {
 		}
 	}
 	
+	public void updateContent(String num, String title, String content) { // 글 클릭시 조회수 증가.
+		String sql = "UPDATE session_board SET title=?, content=? WHERE no=?";
+		PreparedStatement ps= null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, title);
+			ps.setString(2, content);
+			ps.setString(3, num);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(String num) {
+		String sql = "DELETE FROM session_board WHERE no=?";
+		PreparedStatement ps= null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, num);
+			ps.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

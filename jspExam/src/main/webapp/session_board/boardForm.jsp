@@ -16,6 +16,7 @@
 	<%@ include file="/session_quiz/header.jsp" %>
 	
 	<%
+		request.setCharacterEncoding("utf-8");
 		String cp = request.getParameter("currentPage");
 		
 		int currentPage = 1;

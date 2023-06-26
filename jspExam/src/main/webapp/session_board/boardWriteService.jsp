@@ -20,7 +20,7 @@
 		1024mb -> 1gb
 		2014gb -> 1tb
 	*/
-int maxPostSize = 1024 * 1024 * 10;
+ 	int maxPostSize = 1024 * 1024 * 10;
 	
 	String saveDirectory = "C:\\javas\\upload\\" + id + "\\";
 	
@@ -57,7 +57,7 @@ int maxPostSize = 1024 * 1024 * 10;
 	
 	BoardDAO boardDao = new BoardDAO();
 	
-	int no = boardDao.selectMaxNo();
+	int no = boardDao.selectMaxNo(); // 게시글의 No.를 가장 최신글보다 1증가시키기 위해.
 	boardDto.setNo(Integer.toString(no)); //문자로 변환 함.
 	boardDao.write(boardDto);
 	

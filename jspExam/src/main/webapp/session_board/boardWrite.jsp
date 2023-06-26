@@ -32,7 +32,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="글쓰기"> 
-					<input type="button" value="목록"	 onclick="location.href='boardForm.jsp'">
+					<input type="button" value="목록" onclick="location.href='boardForm.jsp'">
 				</td>
 			</tr>
 		</table>
