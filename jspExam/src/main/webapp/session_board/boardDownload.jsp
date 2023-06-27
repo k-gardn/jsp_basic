@@ -12,7 +12,7 @@
 	String no = request.getParameter("num");
 	String fileName = request.getParameter("fileName");
 	
-	if(id== null || id.isEmpty()){
+	if(id == null || id.isEmpty()){
 		response.sendRedirect("boardContent.jsp?num="+no);
 		return;
 	}

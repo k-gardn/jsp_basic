@@ -10,9 +10,7 @@
 <title>boardForm</title>
 </head>
 <body>
-	<!-- 
 
-	 -->
 	<%@ include file="/session_quiz/header.jsp" %>
 	
 	<%
@@ -31,8 +29,8 @@
 		int totalBoard = boardDao.boardCount();
 		int eachPage = 4;
 		
-		int begin = (eachPage * (currentPage - 1)) + 1; // 1,4,7
-		int end = currentPage * eachPage; //3,6,9
+		int begin = (eachPage * (currentPage - 1)) + 1; // 1, 5, 9
+		int end = currentPage * eachPage; //4, 8, 12
 		ArrayList<BoardDTO> boards =  boardDao.getBoardPage(begin, end);
 		
 	%>
