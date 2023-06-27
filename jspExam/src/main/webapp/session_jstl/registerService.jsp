@@ -16,15 +16,15 @@
 	</c:when>
 	<c:otherwise>
 		<jsp:useBean id="memberDao" class="session.MemberDAO"/>
-		<c:set var="check" value="${memberDao.selectId(memberDto.id) }"/>
+		<c:set var="check" value="${memberDao.selectId(memberDto.id) }"/>  
 		<c:choose>
-			<c:when test="${empty check}">
+			<c:when test="${empty check}"> <%-- 회원이 아닐 경우 => 가입 진행 --%>
 	${memberDao.register(memberDto.id, memberDto.pw, memberDto.name, memberDto.email)}
 				<c:set var="msg" value="회원 가입 완료"/>
 				<c:set var="path" value="index.jsp"/>
 			</c:when>
 			<c:otherwise>
-				<c:set var="msg" value="회원 가입 실패"/>
+				<c:set var="msg" value="회원 가입 실패"/> <%--이미 가입된 회원일 경우 --%>
 				<c:set var="path" value="register.jsp"/>
 			</c:otherwise>
 		</c:choose>
