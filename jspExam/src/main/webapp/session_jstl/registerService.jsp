@@ -5,7 +5,7 @@
 
 <fmt:requestEncoding value="utf-8"/>
 
-<jsp:useBean id="memberDto" class="session.MemberDTO"/>
+<jsp:useBean id="memberDto" class="session.MemberDTO"/> <!-- MemberDTO 인스턴스 생성 -->
 <jsp:setProperty property="*" name="memberDto"/>
 <c:choose>
 	<c:when test="${empty memberDto.id or empty memberDto.pw}">

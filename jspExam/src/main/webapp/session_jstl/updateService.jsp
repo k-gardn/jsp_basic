@@ -1,47 +1,26 @@
-<%@page import="session.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	/*
-	데이터 입력 값 존재 여부 확인(null, Empty)
-	
-	입력한 두 비밀번호 검증
-	
-	MemberDAO 안에 update()를 생성 후 테이블에 정보 수정
-	id는 수정 대상이 아님
-	
-	수정 완료 시 session 정보를 삭제 후 index.jsp로 이동
-	수정 실패 시 update.jsp로 이동
-	*/
-	
-	//updateService.jsp
-	String id = (String)session.getAttribute("id");
-	if(id == null){
-		response.sendRedirect("login.jsp");
-		return;
-	}
-	
-	request.setCharacterEncoding("utf-8");
-	String pw = request.getParameter("pw");
-	String confirmPw = request.getParameter("confirmPw");
-	String name = request.getParameter("name");
-	String email = request.getParameter("email");
-	
-	if(pw == null || pw.isEmpty()){
-		response.sendRedirect("update.jsp");
-		return;
-	}
-	
-	if(pw.equals(confirmPw) == false){
-		response.sendRedirect("update.jsp");
-		return;
-	}
-	
-	MemberDAO memberDao = new MemberDAO();
-	memberDao.update(id, pw, name, email);
-	memberDao.disConnection(); // db연결 끊기
-	
-	session.invalidate();
-	response.sendRedirect("index.jsp");
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:requestEncoding value="utf-8"/>    
 
-%>
+<c:choose>
+	<c:when test="${empty sessionScope.id }">
+		<c:redirect url="login.jsp"/>
+	</c:when>
+	<c:when test="${empty param.pw }">
+		<c:redirect url="update.jsp"/>
+	</c:when>
+	<c:when test="${param.pw != param.confirmPw }">
+		<c:redirect url="update.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<jsp:useBean id="memberDao" class="session.MemberDAO"/>
+		${memberDao.update(param.id, param.pw, param.name, param.email) }
+		${memberDao.disConnection() }
+		<c:remove var="id" scope="session"/>
+		<c:remove var="name" scope="session"/>
+		<c:remove var="email" scope="session"/>
+		<c:redirect url="index.jsp"/>
+	</c:otherwise>
+</c:choose>

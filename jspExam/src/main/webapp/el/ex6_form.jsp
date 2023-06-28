@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>논리 연산자들</title>
+<title>ex6_form</title>
 </head>
 <body>
 	<div align="center">
