@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="/session_quiz/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+
+<c:import url="/session_quiz_jstl/header.jsp" />
 <div align="center">
 	<h1>로그인</h1>
 	<table ><tr><td>
@@ -13,7 +14,8 @@
 	</form>
 	</td></tr></table>
 </div>
-<%@ include file="footer.jsp" %>
+<c:import url="/session_quiz_jstl/footer.jsp" />
+
 
 
 
