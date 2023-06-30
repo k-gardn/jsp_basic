@@ -9,7 +9,7 @@
 	.main_div{height: 150px; padding-top : 80px;}
 </style>    
 
-<script src="session_quiz.js"></script>
+<script src="../../../jsp_exam/session_quiz_jstl/session_quiz.js"></script>
 
 
 <div align="center">
@@ -25,7 +25,7 @@
 		<li><a href="${context }/login.jsp">Login</a></li>
 		<li><a href="${context }/memberInfo.jsp">MemberInfo</a></li>
 		<li><a href="${context }/logout.jsp">Logout</a></li>
-		<li><a href="${context }/boardForm.jsp">Board</a></li>
+		<li><a href="../session_board_jstl/boardForm.jsp">Board</a></li>
 	</ul>
 	<hr>
 </div>
